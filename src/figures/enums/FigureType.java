@@ -33,13 +33,15 @@ public enum FigureType
 	RECTANGLE, 
 	ROUNDED_RECTANGLE, 
 	POLYGON, 
+//	REGULARPOLYGON,
+//	ETOILE,
 	NONE;
 
 	/**
 	 * Nombre de figures référencées ici (à changer si on ajoute des types de 
 	 * figures)
 	 */
-	public final static int NbFigureTypes = 5;
+	public final static int NbFigureTypes = 7;
 	
 	/**
 	 * Obtention d'une instance de figure correspondant au type
@@ -89,7 +91,7 @@ public enum FigureType
 	 */
 	public AbstractCreationListener getCreationListener(Drawing model,
 			JLabel tipLabel) throws AssertionError
-	{
+	{		
 		switch (this)
 		{
 			case CIRCLE:
@@ -128,6 +130,10 @@ public enum FigureType
 				return new String("Rounded Rectangle");
 			case POLYGON:
 				return new String("Polygon");
+//			case REGULARPOLYGON:
+//				return new String("Regular Polygon");
+//			case ETOILE:
+//				return new String("Etoile");
 			case NONE:
 				return new String("None");
 		}

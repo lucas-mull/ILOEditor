@@ -105,9 +105,6 @@ public class Drawing extends Observable
 	 */
 	private FigureFilters<LineType> lineFilters;
 	
-	/**
-	 * Mode déplacement des figures (si non mode dessin)
-	 */
 	private boolean moveMode;
 
 	/**
