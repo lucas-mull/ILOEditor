@@ -68,7 +68,7 @@ public class MoveShapeListener extends AbstractCreationListener implements KeyLi
 	public void mouseReleased(MouseEvent e)
 	{
 		// Rien
-		currentFigure = null;
+//		currentFigure = null;
 		nextStep();
 	}
 
@@ -86,8 +86,7 @@ public class MoveShapeListener extends AbstractCreationListener implements KeyLi
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		currentFigure = drawingModel.getFigureAt(e.getPoint());
-		
+		currentFigure = drawingModel.getFigureAt(e.getPoint());		
 	}
 
 	/*
@@ -148,8 +147,26 @@ public class MoveShapeListener extends AbstractCreationListener implements KeyLi
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		if (currentFigure != null)
+		{
+			System.out.println("JE SUIS DANS LE IF !");
+			switch (e.getKeyCode())
+			{
+				case KeyEvent.VK_RIGHT:
+					currentFigure.translate(0, 1);
+					break;
+				case KeyEvent.VK_LEFT:
+					currentFigure.translate(0, -1);
+					break;
+				case KeyEvent.VK_UP:
+					currentFigure.translate(1, 0);
+					break;
+				case KeyEvent.VK_DOWN:
+					currentFigure.translate(-1, 0);
+					break;
+			}
+			drawingModel.update();
+		}		
 	}
 
 	@Override
