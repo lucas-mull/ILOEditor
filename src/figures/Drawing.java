@@ -25,6 +25,7 @@ import utils.StrokeFactory;
  */
 public class Drawing extends Observable
 {
+	
 	/**
 	 * Liste des figures à dessiner
 	 */
@@ -103,6 +104,11 @@ public class Drawing extends Observable
 	 * ayant un type particulier de lignes
 	 */
 	private FigureFilters<LineType> lineFilters;
+	
+	/**
+	 * Mode déplacement des figures (si non mode dessin)
+	 */
+	private boolean moveMode;
 
 	/**
 	 * Constructeur de modèle de dessin
@@ -528,5 +534,13 @@ public class Drawing extends Observable
 		}
 		
 		return figuresStream;
+	}
+	
+	public boolean isMoveMode() {
+		return moveMode;
+	}
+
+	public void setMoveMode(boolean moveMode) {
+		this.moveMode = moveMode;
 	}
 }

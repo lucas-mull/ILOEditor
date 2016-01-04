@@ -284,6 +284,7 @@ public class EditorFrame extends JFrame
 	 */
 	private final Action dashedLineFilterAction = new LineFilterAction(LineType.DASHED);
 
+	
 	/**
 	 * Constructeur de la fenètre de l'éditeur.
 	 * Construit les widgets et assigne les actions et autres listeners
