@@ -1,6 +1,8 @@
 package figures.creationListeners;
 
 import java.awt.Point;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.geom.NoninvertibleTransformException;
 import java.awt.geom.Point2D;
@@ -16,7 +18,7 @@ import figures.Drawing;
  *
  * @author lucasmull
  */
-public class MoveShapeListener extends AbstractCreationListener
+public class MoveShapeListener extends AbstractCreationListener implements KeyListener
 {
 
 	/**
@@ -84,7 +86,8 @@ public class MoveShapeListener extends AbstractCreationListener
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		// Rien
+		currentFigure = drawingModel.getFigureAt(e.getPoint());
+		
 	}
 
 	/*
@@ -141,5 +144,23 @@ public class MoveShapeListener extends AbstractCreationListener
 	public void mouseMoved(MouseEvent e)
 	{
 		// Rien
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
