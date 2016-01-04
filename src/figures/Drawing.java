@@ -103,6 +103,12 @@ public class Drawing extends Observable
 	 * ayant un type particulier de lignes
 	 */
 	private FigureFilters<LineType> lineFilters;
+	
+	/**
+	 * Permet de switcher entre la création de nouvelles figures et le mode de déplacement
+	 * des figures existantes
+	 */
+	private boolean moveMode;
 
 	/**
 	 * Constructeur de modèle de dessin
@@ -528,5 +534,13 @@ public class Drawing extends Observable
 		}
 		
 		return figuresStream;
+	}
+	
+	public boolean isMoveMode() {
+		return moveMode;
+	}
+
+	public void setMoveMode(boolean moveMode) {
+		this.moveMode = moveMode;
 	}
 }

@@ -4,6 +4,9 @@ import java.awt.BasicStroke;
 import java.awt.Graphics2D;
 import java.awt.Paint;
 import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.NoninvertibleTransformException;
+import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
@@ -42,6 +45,8 @@ public abstract class Figure
 	 * 1 si c'est la première figure de ce type, etc.
 	 */
 	protected int instanceNumber;
+	
+	protected AffineTransform transformation;
 
 	/**
 	 * Constructeur d'une figure abstraite à partir d'un style de ligne d'une
@@ -60,6 +65,7 @@ public abstract class Figure
 		this.edge = edge;
 		this.fill = fill;
 		shape = null;
+		transformation = new AffineTransform();
 	}
 
 	/**
@@ -80,6 +86,7 @@ public abstract class Figure
 	 */
 	public final void draw(Graphics2D g2D)
 	{
+		g2D.setTransform(this.transformation);
 		if (fill != null)
 		{
 			g2D.setPaint(fill);
@@ -128,6 +135,13 @@ public abstract class Figure
 	 */
  	public boolean contains(Point2D p)
  	{
+ 		try {
+			transformation.inverseTransform(p, p);
+		} catch (NoninvertibleTransformException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+ 		
  		return shape.contains(p);
  	}
 
@@ -172,4 +186,20 @@ public abstract class Figure
 	{
 		return stroke;
 	}
+
+	public AffineTransform getTransformation() {
+		return transformation;
+	}
+	
+	public void translate(double x, double y)
+	{
+		this.transformation.translate(x, y);
+	}
+	
+	public void scale(double x, double y)
+	{
+		this.transformation.scale(x, y);
+	}
+	
+	
 }

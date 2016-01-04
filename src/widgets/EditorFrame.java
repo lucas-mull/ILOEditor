@@ -21,6 +21,7 @@ import javax.swing.Action;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
@@ -34,6 +35,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
+import javax.swing.JToggleButton;
 import javax.swing.JToolBar;
 import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
@@ -43,6 +45,7 @@ import javax.swing.event.ChangeListener;
 
 import figures.Drawing;
 import figures.creationListeners.AbstractCreationListener;
+import figures.creationListeners.MoveShapeListener;
 import figures.enums.FigureType;
 import figures.enums.LineType;
 import figures.enums.PaintToType;
@@ -395,8 +398,47 @@ public class EditorFrame extends JFrame
 		                                                minEdgeWidth,
 		                                                maxEdgeWidth,
 		                                                stepEdgeWidth);
+		
 		edgeWidthSpinner.setModel(snm);
 		edgeWidthPanel.add(edgeWidthSpinner);
+		
+		JPanel moveModePanel = new JPanel();
+		moveModePanel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		leftPanel.add(moveModePanel);
+		moveModePanel.setLayout(new BoxLayout(moveModePanel, BoxLayout.X_AXIS));
+		
+		JLabel moveModeLabel = new JLabel("Move");
+		moveModeLabel.setAlignmentX(Component.LEFT_ALIGNMENT);
+		moveModePanel.add(moveModeLabel);
+		
+		JCheckBox moveModeCheckBox = new JCheckBox();
+		moveModeCheckBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
+		
+		moveModeCheckBox.addActionListener(new ActionListener() 
+		{
+			@Override
+			public void actionPerformed(ActionEvent event) 
+			{
+				AbstractButton button = (AbstractButton) event.getSource();
+				boolean selected = button.getModel().isSelected();
+				drawingModel.setMoveMode(selected);
+				if (drawingModel.isMoveMode())
+				{
+					drawingPanel.removeCreationListener(creationListener);
+					creationListener = new MoveShapeListener(drawingModel, infoLabel);
+					drawingPanel.addCreationListener(creationListener);
+				}
+				else
+				{
+					FigureType type = drawingModel.getType();
+					drawingPanel.removeCreationListener(creationListener);
+					creationListener = type.getCreationListener(drawingModel, infoLabel);
+					drawingPanel.addCreationListener(creationListener);
+				}
+			}
+		});
+		
+		moveModePanel.add(moveModeCheckBox);
 
 		InfoPanel infoPanel = new InfoPanel();
 		infoPanel.setAlignmentX(Component.LEFT_ALIGNMENT);
